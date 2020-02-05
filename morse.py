@@ -7,10 +7,10 @@
 
 def load_text():
     q = input("Zadej absoutní adresu textového souboru, který chceš převézt na morseovku: ")
-    f = open(q, 'r+', encoding='utf-8')
-    text = f.read()
-    f.close()
-    # print(text)
+    with open(q, 'r+', encoding='utf-8-sig') as f:
+        text = f.read()
+    print(text)
+    return text
 
 
 def encrypt(text):
@@ -25,27 +25,39 @@ def encrypt(text):
         else:
             cipher += '/'
     print(cipher)
+    with open('text_to_morse.txt', 'w+') as f:
+        f.write(cipher)
 
 
-def decrypt():
-    pass
+# def decrypt(message):
+#     message += ' '
+#     decipher = ''
+#     citext = ''
+#     for letter in message:
+#         if letter != ' ':
+#             i = 0
+#             citext += letter
+#         else:
+#             i += 1
+#             if i == 2:
+#                 decipher += ' '
+#                 decipher += list(morse_code_dict.keys())[list(morse_code_dict.values()).index(citext)]
+#                 citext = ''
+#     return decipher
 
 
 morse_code_dict = {
-    'A': '.-', 'B': '-...', 'C': '-.-.',
-    'D': '-..', 'E': '.', 'F': '..-.',
-    'G': '--.', 'H': '....', 'I': '..',
-    'J': '.---', 'K': '-.-', 'L': '.-..',
-    'M': '--', 'N': '-.', 'O': '---',
-    'P': '.--.', 'Q': '--.-', 'R': '.-.',
-    'S': '...', 'T': '-', 'U': '..-',
-    'V': '...-', 'W': '.--', 'X': '-..-',
-    'Y': '-.--', 'Z': '--..', '1': '.----',
-    '2': '..---', '3': '...--', '4': '....-',
-    '5': '.....', '6': '-....', '7': '--...',
-    '8': '---..', '9': '----.', '0': '-----',
+    'A': '.-', 'Á': '.-', 'B': '-...', 'C': '-.-.', 'Č': '-.-.',
+    'D': '-..', 'Ď': '-..', 'E': '.', 'É': '.', 'Ě': '.',
+    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'Í': '..',
+    'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.',
+    'Ň': '-.', 'O': '---', 'Ó': '---', 'P': '.--.', 'Q': '--.-',
+    'R': '.-.', 'Ř': '.-.', 'S': '...', 'Š': '...', 'T': '-',
+    'Ť': '-', 'U': '..-', 'Ú': '..-', 'Ů': '..-', 'V': '...-',
+    'W': '.--', 'X': '-..-', 'Y': '-.--', 'Ý': '-.--', 'Z': '--..', 'Ž': '--..',
+    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
+    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
     '.*': '.-.-.-', ',': '--..--', '?': '..--..',
-    '/': '-..-.', '-': '-....-', '(': '-.--.',
-    ')': '-.--.-'}
+    '/': '-..-.', '-': '-....-', '(': '-.--.', ')': '-.--.-'}
 
-encrypt('ahoj, jak se máš? . com')
+encrypt(load_text())
