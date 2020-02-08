@@ -21,7 +21,7 @@ def encrypt(text):
         if letter != ' ':
             if letter in morse_code_dict_cz:
                 cipher += morse_code_dict_cz[letter] + ' '
-            if letter == '\n':
+            elif letter == '\n':
                 cipher += '\n'
             else:
                 #  character not in morse_code_dict_cz
@@ -49,8 +49,8 @@ def decrypt(morse_cipher):
             elif char == '/':
                 decipher += ' '
     try:
-        with open('morse_to_text.txt', 'w') as f:
-            f.write(decipher)
+        with open('morse_to_text.txt', 'a+') as f:
+            f.write(decipher + '\n')
     except PermissionError:
         print('Not adequate access rights.')
 
