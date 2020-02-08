@@ -2,31 +2,46 @@
 
 
 def load_text():
-    inp = input("Zadej absoutní adresu textového souboru, který chceš převézt na morseovku: ")
-    with open(inp, 'r+', encoding='utf-8-sig') as f:
-        text = f.read()
-        print(text)  # SMAZAT
+    while True:
+        inp = input('Enter an absolute path to a text file that you want to translate to morse code: ')
+        try:
+            with open(inp, 'r', encoding='utf-8-sig') as f:
+                text = f.read()
+                print(text)
+                break
+        except FileNotFoundError:
+            print('No such text file.')
+            continue
+        except PermissionError:
+            print('Not adequate access rights.')
+            continue
     return text
 
 
 def encrypt(text):
     cipher = ''
-    text_upper = text.upper()  # kapitalky
+    text_upper = text.upper()
     for letter in text_upper:
         if letter != ' ':
             if letter in morse_code_dict_cz:
                 cipher += morse_code_dict_cz[letter] + ' '
+            if letter == '\n':
+                cipher += '\n'
             else:
-                cipher += letter + ' '
+                #  character not in morse_code_dict_cz
+                cipher += ''
         else:
             cipher += '/ '
-    print(cipher)  # SMAZAT
-    with open('text_to_morse.txt', 'w') as f:
-        f.write(cipher)
-    with open('text_to_morse.txt', 'r') as F:
-        text_to_morse_lines = F.readlines()
-        for line in text_to_morse_lines:
-            decrypt(line)
+    print(cipher)
+    try:
+        with open('text_to_morse.txt', 'w') as f:
+            f.write(cipher)
+        with open('text_to_morse.txt', 'r') as F:
+            text_to_morse_lines = F.readlines()
+            for line in text_to_morse_lines:
+                decrypt(line)
+    except PermissionError:
+        print('Not adequate access rights.')
 
 
 def decrypt(morse_cipher):
@@ -38,9 +53,12 @@ def decrypt(morse_cipher):
                 decipher += inv_morse_code_dict[char]
             elif char == '/':
                 decipher += ' '
-    with open('morse_to_text.txt', 'w+') as f:
-        f.write(decipher)
-        print(decipher)
+    try:
+        with open('morse_to_text.txt', 'w') as f:
+            f.write(decipher)
+            print(decipher)
+    except PermissionError:
+        print('Not adequate access rights.')
 
 
 morse_code_dict_cz = {
