@@ -1,13 +1,9 @@
-# C:\Users\zvukar\Desktop\B 4. ročník\Úvod do programování\cviceni\in\basnicka.txt
-
-
 def load_text():
     while True:
         inp = input('Enter an absolute path to a text file that you want to translate to morse code: ')
         try:
             with open(inp, 'r', encoding='utf-8-sig') as f:
                 text = f.read()
-                print(text)
                 break
         except FileNotFoundError:
             print('No such text file.')
@@ -32,7 +28,6 @@ def encrypt(text):
                 cipher += ''
         else:
             cipher += '/ '
-    print(cipher)
     try:
         with open('text_to_morse.txt', 'w') as f:
             f.write(cipher)
@@ -56,7 +51,6 @@ def decrypt(morse_cipher):
     try:
         with open('morse_to_text.txt', 'w') as f:
             f.write(decipher)
-            print(decipher)
     except PermissionError:
         print('Not adequate access rights.')
 
