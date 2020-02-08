@@ -31,11 +31,13 @@ def input_length():
 
 def pw_gen(characters, length):
     """generates all characters combinations with selected length and exports them to a text file"""
-    with open("password_combinations.txt", "a+") as f:
-        #comb_list = []
-        for i in itertools.product(characters, repeat=length):
-            combination = ''.join(i)
-            f.write(combination)
-            f.write('\n')
+    try:
+        with open("password_combinations.txt", "a+") as f:
+            for i in itertools.product(characters, repeat=length):
+                combination = ''.join(i)
+                f.write(combination + '\n')
+    except PermissionError:
+        print('Not adequate access rights: ', f)
+
 
 pw_gen(get_char(), input_length())
