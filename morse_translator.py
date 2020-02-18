@@ -9,10 +9,10 @@ def load_text():
                 break
         # exceptions treatment
         except FileNotFoundError:
-            print('No such text file.')
+            print('No such text file:', f)
             continue
         except PermissionError:
-            print('Not adequate access rights.')
+            print('Not adequate access rights:', f)
             continue
     return text
 
@@ -45,7 +45,7 @@ def encrypt(text):
                 decrypt(line)
     # exception treatment
     except PermissionError:
-        print('Not adequate access rights.')
+        print('Not adequate access rights:', f)
 
 
 def decrypt(morse_cipher):
@@ -66,7 +66,7 @@ def decrypt(morse_cipher):
             f.write(decipher + '\n')
     # exception treatment
     except PermissionError:
-        print('Not adequate access rights.')
+        print('Not adequate access rights:', f)
 
 
 # morse code dictionary used for translation from text to morse
