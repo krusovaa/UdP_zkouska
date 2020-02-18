@@ -7,6 +7,7 @@ def load_text():
             with open(inp, 'r', encoding='utf-8-sig') as f:
                 text = f.read()
                 break
+        # exceptions treatment
         except FileNotFoundError:
             print('No such text file.')
             continue
@@ -42,6 +43,7 @@ def encrypt(text):
             text_to_morse_lines = F.readlines()
             for line in text_to_morse_lines:
                 decrypt(line)
+    # exception treatment
     except PermissionError:
         print('Not adequate access rights.')
 
@@ -62,8 +64,10 @@ def decrypt(morse_cipher):
         # export decrypted text to a new text file
         with open('morse_to_text.txt', 'a+') as f:
             f.write(decipher + '\n')
+    # exception treatment
     except PermissionError:
         print('Not adequate access rights.')
+
 
 # morse code dictionary used for translation from text to morse
 morse_code_dict_cz = {
@@ -74,8 +78,8 @@ morse_code_dict_cz = {
     'Y': '-.--', 'Ý': '-.--', 'Z': '--..', 'Ž': '--..',
     '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
     '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
-    '&': '.-...', "'": '.----.', '@': '.--.-.', ')': '-.--.-', '(': '-.--.', ':': '---...', ',': '--..--', '=': '-...-',
-    '!': '-.-.--', '.': '.-.-.-', '-': '-....-', '+': '.-.-.',  '"': '.-..-.', '?': '..--..', '/': '-..-.'}
+    "'": '.----.', '@': '.--.-.', ')': '-.--.-', '(': '-.--.', ':': '---...', ',': '--..--', '=': '-...-',
+    '.': '.-.-.-', '-': '-....-', '+': '.-.-.',  '"': '.-..-.', '?': '..--..', '/': '-..-.'}
 
 # morse code dictionary used for translation from morse to text
 morse_code_dict_int = {
@@ -84,9 +88,11 @@ morse_code_dict_int = {
     'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
     '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
     '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
-    '&': '.-...', "'": '.----.', '@': '.--.-.', ')': '-.--.-', '(': '-.--.', ':': '---...', ',': '--..--', '=': '-...-',
-    '!': '-.-.--', '.': '.-.-.-', '-': '-....-', '+': '.-.-.',  '"': '.-..-.', '?': '..--..', '/': '-..-.'}
+    "'": '.----.', '@': '.--.-.', ')': '-.--.-', '(': '-.--.', ':': '---...', ',': '--..--', '=': '-...-',
+    '.': '.-.-.-', '-': '-....-', '+': '.-.-.',  '"': '.-..-.', '?': '..--..', '/': '-..-.'}
 
+# getting keys using values
 inv_morse_code_dict = dict((v, k) for (k, v) in morse_code_dict_int.items())
 
+# running function
 encrypt(load_text())
