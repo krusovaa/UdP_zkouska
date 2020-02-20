@@ -52,9 +52,9 @@ def pw_gen(characters, length):
         # output text file
         with open("password_combinations.txt", "a+") as f:
             for p in itertools.product(characters, repeat=length):
-                combination = ''.join(p)
+                variation = ''.join(p)
                 # write each variation and create a new line
-                f.write(combination + '\n')
+                f.write(variation + '\n')
                 x += 1
                 # count current percent of computed variations
                 percent = 100.0 * x / comb_numb
