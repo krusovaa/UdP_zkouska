@@ -1,6 +1,5 @@
 # import modules
 import itertools
-import math
 import string
 
 
@@ -37,37 +36,33 @@ def input_length():
 
 
 def pw_gen(characters, length):
-    """generate all characters combinations with selected length and export them to a text file"""
-    # counting number of combinations according to a formula in documentation
+    """generate all characters variations with selected length and export them to a text file"""
+    # counting number of variations according to a formula in documentation
     k = length
-    n = len(characters) + k - 1
-    comb_numb = (math.factorial(n)/(math.factorial(n-length)*math.factorial(length)))*length
-    print(comb_numb)
+    n = len(characters)
+    comb_numb = n ** k
 
     x = 0
     # first value
-    percent = 5
+    next_percent = 5
     # step of percent done to display
-    step = 5
+    percent_step = 5
     # 'step' % of combinations
-    boundary_value = comb_numb/(100/step)
-    print(boundary_value)
     try:
         # output text file
         with open("password_combinations.txt", "a+") as f:
             for p in itertools.product(characters, repeat=length):
                 combination = ''.join(p)
-                # write each combination and create a new line
+                # write each variation and create a new line
                 f.write(combination + '\n')
                 x += 1
-                if boundary_value <= x :
-                    print(boundary_value)
-                    print("{} % complete".format(percent))
-                    percent += step
-                    boundary_value += comb_numb/(100/step)
-
-                elif x > comb_numb:
-                    break
+                # count current percent of computed variations
+                percent = 100.0 * x / comb_numb
+                if percent >= next_percent:
+                    print(f"{next_percent} % complete")
+                    # add percent_step
+                    while next_percent < percent:
+                        next_percent += percent_step
     # exception treatment
     except PermissionError:
         print('Not adequate access rights: ', f)
